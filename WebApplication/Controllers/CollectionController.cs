@@ -11,6 +11,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using WebApplication.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 
 namespace WebApplication.Controllers
 {
@@ -25,12 +26,12 @@ namespace WebApplication.Controllers
             appData = options.Value;
         }
 
-        public IActionResult Index(int page = 1, int sort = 1,
+        public async Task<IActionResult> Index(int page = 1, int sort = 1,
         bool ascending = true)
         {
             int pagesize = appData.PageSize;
             var query = ctx.Collections.AsNoTracking();
-            int count = query.Count();
+            int count = await query.CountAsync();
             if (count == 0)
             {
                 TempData[Constants.Message] = "No data in the database";
@@ -53,13 +54,24 @@ namespace WebApplication.Controllers
             }
 
             query = query.ApplySort(sort, ascending);
-            var collection = query
+            var collection = await query
                             .Skip((page - 1) * pagesize)
                             .Take(pagesize)
-                            .ToList();
+                            .ToListAsync();
+
+            List<ViewCollection> vw_collection = new List<ViewCollection>();
+
+            for (var i = 0; i < collection.Count(); i++)
+            {
+                vw_collection.Add(new ViewCollection(collection[i].CollectionId, collection[i].Name, collection[i].MuseumId, ctx.Museums
+                  .Where(d => d.MuseumId == collection[i].MuseumId)
+                  .Select(s => s.Name)
+                  .FirstOrDefault()));
+                
+            }
             var model = new CollectionViewModel
             {
-                Collection = collection,
+                Collection = vw_collection,
                 PagingInfo = pagingInfo
             };
             return View(model);

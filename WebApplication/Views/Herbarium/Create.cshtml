@@ -18,6 +18,13 @@
         <div><span asp-validation-for="YearOfCollection" class="text-danger" /></div>
         <input asp-for="YearOfCollection" class="form-control" />
     </div>
+    <div class="form-group">
+        <label asp-for="CollectionId"></label>
+        <div><span asp-validation-for="CollectionId" class="text-danger"></span></div>
+        <select class="form-control" asp-for="CollectionId" asp-items="ViewBag.Collection">
+            <option disabled selected value="">Chose collection</option>
+        </select>
+    </div>
     <div class="text-center">
         <button class="btn btn-primary" type="submit">Add</button>
         <a asp-action="Index" class="btn btn-secondary">Back</a>

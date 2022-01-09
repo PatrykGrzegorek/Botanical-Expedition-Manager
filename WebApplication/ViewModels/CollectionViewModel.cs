@@ -8,7 +8,7 @@ namespace WebApplication.ViewModels
 {
     public class CollectionViewModel
     {
-        public IEnumerable<Collection> Collection { get; set; }
+        public IEnumerable<ViewCollection> Collection { get; set; }
         public PagingInfo PagingInfo { get; set; }
 
     }

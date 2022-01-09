@@ -8,10 +8,6 @@
 
 <a asp-action="Create">Add new herbarium</a>
 
-<pager page-info="@Model.PagingInfo" page-action="Index" page-title="Enter the page you want"
-       class="float-right">
-</pager>
-
 <table class="table table-sm table-striped table-hover">
   <thead>
       <tr>
@@ -25,6 +21,9 @@
                   YearOfCollection
               </a>
           </th>
+          <th>
+                  Collection
+          </th>
           <th></th>
       </tr>
   </thead>
@@ -34,6 +33,7 @@
       <tr>
           <td class="text-center">@herbarium.InventoryNumber</td>
           <td class="text-center">@herbarium.YearOfCollection</td>
+          <td class="text-center">@herbarium.CollectionName</td>
           <td class="btn-group">
               <a asp-action="Edit"
                  asp-route-id="@herbarium.HerbariumId"
@@ -44,6 +44,7 @@
           </td>
           <td>
               <form asp-action="Delete" method="post"
+                    asp-route-IdHerbarium="@herbarium.HerbariumId"
                     asp-route-page="@Model.PagingInfo.CurrentPage"
                     asp-route-sort="@Model.PagingInfo.Sort"
                     asp-route-ascending="@Model.PagingInfo.Ascending">
@@ -55,7 +56,3 @@
     }
   </tbody>
 </table>
-
-@section scripts {
-  <script src="~/js/pager.js" asp-append-version="true"></script>
-}

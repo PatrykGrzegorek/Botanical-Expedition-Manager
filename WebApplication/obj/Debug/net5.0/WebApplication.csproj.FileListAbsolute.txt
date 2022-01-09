@@ -72,7 +72,6 @@ C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\bin\Debug\net5.
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\bin\Debug\net5.0\efpt.config.json
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\bin\Debug\net5.0\libman.json
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Shared\Components\Navigation\Default.cshtml.g.cs
-C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Museum\IndexSimple.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Museum\Index.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\bin\Debug\net5.0\FluentValidation.dll
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\bin\Debug\net5.0\FluentValidation.AspNetCore.dll
@@ -85,11 +84,9 @@ C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Collection\Create.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Collection\Edit.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Collection\Index.cshtml.g.cs
-C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Collection\IndexSimple.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Herbarium\Create.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Herbarium\Edit.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Herbarium\Index.cshtml.g.cs
-C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Herbarium\IndexSimple.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Species\Create.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Species\Edit.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Species\Index.cshtml.g.cs

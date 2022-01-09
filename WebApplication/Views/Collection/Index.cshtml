@@ -1,61 +1,58 @@
 ﻿@model WebApplication.ViewModels.CollectionViewModel
 
-@{
-  ViewBag.Title = "Collection";
-}
+    @{ ViewBag.Title = "Collection"; }
 
-<h2>List of collection</h2>
+    <h2>List of collection</h2>
 
-<a asp-action="Create">Add new collection</a>
+    <a asp-action="Create">Add new collection</a>
 
-<pager page-info="@Model.PagingInfo" page-action="Index" page-title="Enter the page you want"
-       class="float-right">
-</pager>
+    <pager page-info="@Model.PagingInfo" page-action="Index" page-title="Enter the page you want"
+           class="float-right">
+    </pager>
 
-<table class="table table-sm table-striped table-hover">
-  <thead>
-      <tr>
-          <th>
-              <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
-                  Name
-              </a>
-          </th>
-          <th>
-              <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
-                  Museum
-              </a>
-          </th>
-          <th></th>
-      </tr>
-  </thead>
-  <tbody>
-    @foreach (var collection in Model.Collection)
-    {
-      <tr>
-          <td class="text-center">@collection.Name</td>
+    <table class="table table-sm table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                        Name
+                    </a>
+                </th>
+                <th>
+                    Museum
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var collection in Model.Collection)
+            {
+<tr>
+    <td class="text-center">@collection.Name</td>
+    <td class="text-center">@collection.MuseumName</td>
 
-          <td class="btn-group">
-              <a asp-action="Edit"
-                 asp-route-id="@collection.CollectionId"
-                 asp-route-page="@Model.PagingInfo.CurrentPage"
-                 asp-route-sort="@Model.PagingInfo.Sort"
-                 asp-route-ascending="@Model.PagingInfo.Ascending"
-                 class="btn btn-sm btn-info" title="Edit"><i class="fas fa-edit"></i></a>
-          </td>
-          <td>
-              <form asp-action="Delete" method="post"
-                    asp-route-page="@Model.PagingInfo.CurrentPage"
-                    asp-route-sort="@Model.PagingInfo.Sort"
-                    asp-route-ascending="@Model.PagingInfo.Ascending">
-                  <input type="hidden" name="CollectionId" value="@collection.CollectionId" />
-                  <button type="submit" class="btn btn-sm btn-danger delete" title="Delete"><i class="delete"></i></button>
-              </form>
-          </td>
-      </tr>
+    <td class="btn-group">
+        <a asp-action="Edit"
+           asp-route-id="@collection.CollectionId"
+           asp-route-page="@Model.PagingInfo.CurrentPage"
+           asp-route-sort="@Model.PagingInfo.Sort"
+           asp-route-ascending="@Model.PagingInfo.Ascending"
+           class="btn btn-sm btn-info" title="Edit"><i class="fas fa-edit"></i></a>
+    </td>
+    <td>
+        <form asp-action="Delete" method="post"
+              asp-route-IdCollection="@collection.CollectionId"
+              asp-route-page="@Model.PagingInfo.CurrentPage"
+              asp-route-sort="@Model.PagingInfo.Sort"
+              asp-route-ascending="@Model.PagingInfo.Ascending">
+            <input type="hidden" name="CollectionId" value="@collection.CollectionId" />
+            <button type="submit" class="btn btn-sm btn-danger delete" title="Delete"><i class="delete"></i></button>
+        </form>
+    </td>
+</tr>}
+        </tbody>
+    </table>
+
+    @section scripts {
+        <script src="~/js/pager.js" asp-append-version="true"></script>
     }
-  </tbody>
-</table>
-
-@section scripts {
-  <script src="~/js/pager.js" asp-append-version="true"></script>
-}

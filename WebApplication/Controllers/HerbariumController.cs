@@ -11,6 +11,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using WebApplication.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 
 namespace WebApplication.Controllers
 {
@@ -25,27 +26,18 @@ namespace WebApplication.Controllers
             appData = options.Value;
         }
 
-        public async Task<IActionResult> Index(string filter, int page = 1, int sort = 1, bool ascending = true)
+        public async Task<IActionResult> Index(int page = 1, int sort = 1,
+        bool ascending = true)
         {
             int pagesize = appData.PageSize;
             var query = ctx.Herbaria.AsNoTracking();
-
-            //#region Apply filter
-            //HerbariumFilter df = HerbariumFilter.FromString(filter);
-            //if (!df.IsEmpty())
-            //{
-            //    if (df.CollectionId.HasValue)
-            //    {
-            //        df.CollectionName = await ctx.vw_Collection
-            //                                  .Where(p => p.CollectionId == df.CollectionId)
-            //                                  .Select(vp => vp.InventoryNumber.ToString())
-            //                                  .FirstOrDefaultAsync();
-            //    }
-            //    query = df.Apply(query);
-            //}
-            //#endregion
-
             int count = await query.CountAsync();
+            if (count == 0)
+            {
+                TempData[Constants.Message] = "No data in the database";
+                TempData[Constants.ErrorOccurred] = false;
+                return RedirectToAction(nameof(Create));
+            }
 
             var pagingInfo = new PagingInfo
             {
@@ -55,9 +47,10 @@ namespace WebApplication.Controllers
                 ItemsPerPage = pagesize,
                 TotalItems = count
             };
-            if (count > 0 && (page < 1 || page > pagingInfo.TotalPages))
+            if (page < 1 || page > pagingInfo.TotalPages)
             {
-                return RedirectToAction(nameof(Index), new { page = 1, sort, ascending, filter });
+                return RedirectToAction(nameof(Index),
+                new { page = pagingInfo.TotalPages, sort, ascending });
             }
 
             query = query.ApplySort(sort, ascending);
@@ -66,112 +59,23 @@ namespace WebApplication.Controllers
                             .Take(pagesize)
                             .ToListAsync();
 
-            //var model = new HerbariumViewModel
-            //{
-            //    Herbarium = herbarium,
-            //    PagingInfo = pagingInfo,
-            //    Filter = df
-            //};
-            //return View(model);
-            return View();
+            List<ViewHerbarium> vw_herbarium = new List<ViewHerbarium>();
+
+            for (var i = 0; i < herbarium.Count(); i++)
+            {
+                vw_herbarium.Add(new ViewHerbarium(herbarium[i].HerbariumId, herbarium[i].CollectionId, herbarium[i].YearOfCollection, herbarium[i].InventoryNumber, ctx.Collections
+                  .Where(d => d.CollectionId == herbarium[i].CollectionId)
+                  .Select(s => s.Name)
+                  .FirstOrDefault()));
+                
+            }
+            var model = new HerbariumViewModel
+            {
+                Herbarium = vw_herbarium,
+                PagingInfo = pagingInfo
+            };
+            return View(model);
         }
-
-        [HttpPost]
-        public IActionResult Filter(HerbariumFilter filter)
-        {
-            return RedirectToAction(nameof(Index), new { filter = filter.ToString() });
-        }
-
-        //public async Task<IActionResult> Show(int id, int? position, string filter, int page = 1, int sort = 1, bool ascending = true, string viewName = nameof(Show))
-        //{
-        //    var Herbarium = await ctx.Herbarium
-        //                            .Where(d => d.IdDokumenta == id)
-        //                            .Select(d => new HerbariumViewModel
-        //                            {
-        //                                BrDokumenta = d.BrDokumenta,
-        //                                DatDokumenta = d.DatDokumenta,
-        //                                IdDokumenta = d.IdDokumenta,
-        //                                IdPartnera = d.IdPartnera,
-        //                                IdPrethDokumenta = d.IdPrethDokumenta,
-        //                                IznosDokumenta = d.IznosDokumenta,
-        //                                PostoPorez = d.PostoPorez,
-        //                                VrDokumenta = d.VrDokumenta
-        //                            })
-        //                            .FirstOrDefaultAsync();
-        //    if (dokument == null)
-        //    {
-        //        return NotFound($"Dokument {id} ne postoji");
-        //    }
-        //    else
-        //    {
-        //        dokument.NazPartnera = await ctx.vw_Partner
-        //                                        .Where(p => p.IdPartnera == dokument.IdPartnera)
-        //                                        .Select(p => p.Naziv)
-        //                                        .FirstOrDefaultAsync();
-
-        //        if (dokument.IdPrethDokumenta.HasValue)
-        //        {
-        //            dokument.NazPrethodnogDokumenta = await ctx.vw_Dokumenti
-        //                                                       .Where(d => d.IdDokumenta == dokument.IdPrethDokumenta)
-        //                                                       .Select(d => d.IdDokumenta + " " + d.NazPartnera + " " + d.IznosDokumenta)
-        //                                                       .FirstOrDefaultAsync();
-        //        }
-        //        //učitavanje stavki
-        //        var stavke = await ctx.Stavka
-        //                              .Where(s => s.IdDokumenta == dokument.IdDokumenta)
-        //                              .OrderBy(s => s.IdStavke)
-        //                              .Select(s => new StavkaViewModel
-        //                              {
-        //                                  IdStavke = s.IdStavke,
-        //                                  JedCijArtikla = s.JedCijArtikla,
-        //                                  KolArtikla = s.KolArtikla,
-        //                                  NazArtikla = s.SifArtiklaNavigation.NazArtikla,
-        //                                  PostoRabat = s.PostoRabat,
-        //                                  SifArtikla = s.SifArtikla
-        //                              })
-        //                              .ToListAsync();
-        //        dokument.Stavke = stavke;
-
-        //        if (position.HasValue)
-        //        {
-        //            page = 1 + position.Value / appData.PageSize;
-        //            await SetPreviousAndNext(position.Value, filter, sort, ascending);
-        //        }
-
-        //        ViewBag.Page = page;
-        //        ViewBag.Sort = sort;
-        //        ViewBag.Ascending = ascending;
-        //        ViewBag.Filter = filter;
-        //        ViewBag.Position = position;
-
-        //        return View(viewName, dokument);
-        //    }
-        //}
-
-        //private async Task SetPreviousAndNext(int position, string filter, int sort, bool ascending)
-        //{
-        //    var query = ctx.vw_Dokumenti.AsQueryable();
-
-        //    DokumentFilter df = new DokumentFilter();
-        //    if (!string.IsNullOrWhiteSpace(filter))
-        //    {
-        //        df = DokumentFilter.FromString(filter);
-        //        if (!df.IsEmpty())
-        //        {
-        //            query = df.Apply(query);
-        //        }
-        //    }
-
-        //    query = query.ApplySort(sort, ascending);
-        //    if (position > 0)
-        //    {
-        //        ViewBag.Previous = await query.Skip(position - 1).Select(d => d.IdDokumenta).FirstAsync();
-        //    }
-        //    if (position < await query.CountAsync() - 1)
-        //    {
-        //        ViewBag.Next = await query.Skip(position + 1).Select(d => d.IdDokumenta).FirstAsync();
-        //    }
-        //}
 
         [HttpGet]
         public async Task<IActionResult> Create()
@@ -190,28 +94,31 @@ namespace WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Herbarium herbarium)
+        public async Task<IActionResult> Create(Herbarium herbarium)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     ctx.Add(herbarium);
-                    ctx.SaveChanges();
-                    TempData[Constants.Message] =
-                    $"Herbarium {herbarium.InventoryNumber} is added.";
+                    await ctx.SaveChangesAsync();
+
+                    TempData[Constants.Message] = $"Herbarium {herbarium.InventoryNumber} is added.";
                     TempData[Constants.ErrorOccurred] = false;
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception exc)
                 {
-                    ModelState.AddModelError(string.Empty,
-                    exc.CompleteExceptionMessage());
+                    ModelState.AddModelError(string.Empty, exc.CompleteExceptionMessage());
+                    await PrepareDropDownLists();
                     return View(herbarium);
                 }
             }
             else
+            {
+                await PrepareDropDownLists();
                 return View(herbarium);
+            }
         }
 
         [HttpPost]

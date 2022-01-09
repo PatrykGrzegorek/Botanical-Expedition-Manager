@@ -99,7 +99,6 @@ namespace WebApplication.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int IdMuseum, int page = 1, int sort = 1, bool ascending = true)
         {
-            Console.WriteLine(IdMuseum.ToString());
             var museum = await ctx.Museums.FindAsync(IdMuseum);
             
             if (museum != null)
