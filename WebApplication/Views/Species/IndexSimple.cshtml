@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Species>
+@{
+  ViewData["Title"] = "List of speciess";
+}
+<h2>List of speciess</h2>
+
+<table class="table table-sm table-striped table-hover" id="tablespecies">
+  <thead>
+      <tr>
+          <th>LatinName</th>
+          <th>TaxonomicTree</th>
+          <th>IsEndemic</th>
+          <th>IsAutochthonous</th>
+          <th>IsWeed</th>
+          <th>IsInvasive</th>
+      </tr>Species
+  </thead>
+  <tbody>
+    @foreach (var species in Model)
+    {
+      <tr>
+          <td class="text-center">@species.LatinName</td>
+          <td class="text-center">@species.TaxonomicTree</td>
+          <td class="text-center">@species.IsEndemic</td>
+          <td class="text-center">@species.IsAutochthonous</td>
+          <td class="text-center">@species.IsWeed</td>
+          <td class="text-center">@species.IsInvasive</td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+@section styles{
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" />
+}
+
+@section scripts{
+  <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+  <script>
+      $(document).ready(function () {
+          $('#tablespecies').DataTable();
+      });
+  </script>
+}

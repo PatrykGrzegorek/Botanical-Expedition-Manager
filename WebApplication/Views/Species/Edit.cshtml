@@ -1,0 +1,56 @@
+﻿@model Species
+
+@{
+  ViewBag.Title = "Edit species";
+}
+
+<form asp-route-id="@Model.Id"
+      asp-route-page="@ViewBag.Page"
+      asp-route-sort="@ViewBag.Sort"
+      asp-route-ascending="@ViewBag.Ascending"
+      method="post">
+    <div asp-validation-summary="All"></div>
+
+    <div class="form-group">
+        <label asp-for="LatinName"></label>
+        <div><span asp-validation-for="LatinName" class="text-danger" /></div>
+        <input asp-for="LatinName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="TaxonomicTree"></label>
+        <div><span asp-validation-for="TaxonomicTree" class="text-danger" /></div>
+        <input asp-for="TaxonomicTree" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="IsEndemic"></label>
+        <div><span asp-validation-for="IsEndemic" class="text-danger" /></div>
+        <input asp-for="IsEndemic" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="IsAutochthonous"></label>
+        <div><span asp-validation-for="IsAutochthonous" class="text-danger" /></div>
+        <input asp-for="IsAutochthonous" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="IsWeed"></label>
+        <div><span asp-validation-for="IsWeed" class="text-danger" /></div>
+        <input asp-for="IsWeed" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="IsInvasive"></label>
+        <div><span asp-validation-for="IsInvasive" class="text-danger" /></div>
+        <input asp-for="IsInvasive" class="form-control" />
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Edit</button>
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">Back</a>
+    </div>
+</form>
+
+@section scripts {
+  <partial name="IncludeValidation" />
+}

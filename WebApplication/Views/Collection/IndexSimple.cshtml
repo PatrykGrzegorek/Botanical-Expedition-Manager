@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Collection>
+@{
+  ViewData["Title"] = "List of collections";
+}
+<h2>List of collections</h2>
+
+<table class="table table-sm table-striped table-hover" id="tablecollection">
+  <thead>
+    <tr>
+        <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var collection in Model)
+    {
+      <tr>
+        <td class="text-center">@collection.Name</td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+@section styles{
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" />
+}
+
+@section scripts{
+  <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+  <script>
+      $(document).ready(function () {
+          $('#tablecollection').DataTable();
+      });
+  </script>
+}

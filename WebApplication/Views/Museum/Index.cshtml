@@ -1,0 +1,70 @@
+﻿@model WebApplication.ViewModels.MuseumViewModel
+
+@{ ViewBag.Title = "Museum"; }
+
+<h2>List of museums</h2>
+
+<a asp-action="Create">Add new museum</a>
+
+<table class="table table-sm table-striped table-hover" id="tablemuseum">
+    <thead>
+        <tr>
+            <th>
+                <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                    MuseumId
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="2" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 2 ? !Model.PagingInfo.Ascending : true)">
+                    Name
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="3" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 3 ? !Model.PagingInfo.Ascending : true)">
+                    Country
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="4" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 4 ? !Model.PagingInfo.Ascending : true)">
+                    City
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="5" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 5 ? !Model.PagingInfo.Ascending : true)">
+                    StreetName
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var museum in Model.Museum)
+        {
+<tr>
+    <td class="text-center">@museum.MuseumId</td>
+    <td class="text-center">@museum.Name</td>
+    <td class="text-left">@museum.Country</td>
+    <td class="text-center">@museum.City</td>
+    <td class="text-center">@museum.StreetName</td>
+    <td class="btn-group">
+        <a asp-action="Edit"
+           asp-route-id="@museum.MuseumId"
+           asp-route-page="@Model.PagingInfo.CurrentPage"
+           asp-route-sort="@Model.PagingInfo.Sort"
+           asp-route-ascending="@Model.PagingInfo.Ascending"
+           class="btn btn-sm btn-info" title="Edit"><i class="fas fa-edit"></i></a>
+    </td>
+    <td class="btn-group">
+        <form asp-action="Delete" method="post"
+              asp-route-IdMuseum="@museum.MuseumId"
+              asp-route-page="@Model.PagingInfo.CurrentPage"
+              asp-route-sort="@Model.PagingInfo.Sort"
+              asp-route-ascending="@Model.PagingInfo.Ascending">
+            <input type="hidden" name="MuseumId" value="@museum.MuseumId" />
+            <button type="submit" class="btn btn-sm btn-danger delete" title="Delete"><i class="fas fa-trash-alt"></i></button>
+        </form>
+    </td>
+</tr>}
+    </tbody>
+</table>
+

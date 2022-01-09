@@ -1,0 +1,56 @@
+﻿@model Museum
+
+@{
+  ViewBag.Title = "Edit museum";
+}
+
+<form asp-route-id="@Model.MuseumId"
+      asp-route-page="@ViewBag.Page"
+      asp-route-sort="@ViewBag.Sort"
+      asp-route-ascending="@ViewBag.Ascending"
+      method="post">
+    <div asp-validation-summary="All"></div>
+
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <div><span asp-validation-for="Name" class="text-danger"></span></div>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Country"></label>
+        <div><span asp-validation-for="Country" class="text-danger"></span></div>
+        <textarea asp-for="Country" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="City"></label>
+        <div><span asp-validation-for="City" class="text-danger"></span></div>
+        <input asp-for="City" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="StreetName"></label>
+        <div><span asp-validation-for="StreetName" class="text-danger"></span></div>
+        <input asp-for="StreetName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="StreetNumber"></label>
+        <div><span asp-validation-for="StreetNumber" class="text-danger"></span></div>
+        <input asp-for="StreetNumber" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="PostalCode"></label>
+        <div><span asp-validation-for="PostalCode" class="text-danger"></span></div>
+        <input asp-for="PostalCode" class="form-control" />
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Edit</button>
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">Back</a>
+    </div>
+</form>
+
+@section scripts {
+  <partial name="IncludeValidation" />
+}

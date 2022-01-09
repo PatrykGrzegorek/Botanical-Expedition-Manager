@@ -1,0 +1,85 @@
+﻿@model WebApplication.ViewModels.SpeciesViewModel
+
+@{
+  ViewBag.Title = "Species";
+}
+
+<h2>List of species</h2>
+
+<a asp-action="Create">Add new species</a>
+
+<pager page-info="@Model.PagingInfo" page-action="Index" page-title="Enter the page you want"
+       class="float-right">
+</pager>
+
+<table class="table table-sm table-striped table-hover">
+  <thead>
+      <tr>
+          <th>
+              <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                  LatinName
+              </a>
+          </th>
+          <th>
+              <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                  TaxonomicTree
+              </a>
+          </th>
+          <th>
+              <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                  IsEndemic
+              </a>
+          </th>
+          <th>
+              <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                  IsAutochthonous
+              </a>
+          </th>
+          <th>
+              <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                  IsWeed
+              </a>
+          </th>
+          <th>
+              <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                  IsInvasive
+              </a>
+          </th>
+
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+    @foreach (var species in Model.Species)
+    {
+      <tr>
+          <td class="text-center">@species.LatinName</td>
+          <td class="text-center">@species.TaxonomicTree</td
+          <td class="text-center">@species.IsEndemic</td>
+          <td class="text-center">@species.IsAutochthonous</td>
+          <td class="text-center">@species.IsWeed</td>
+          <td class="text-center">@species.IsInvasive</td>
+          <td class="btn-group">
+              <a asp-action="Edit"
+                 asp-route-id="@species.Id"
+                 asp-route-page="@Model.PagingInfo.CurrentPage"
+                 asp-route-sort="@Model.PagingInfo.Sort"
+                 asp-route-ascending="@Model.PagingInfo.Ascending"
+                 class="btn btn-sm btn-info" title="Edit"><i class="fas fa-edit"></i></a>
+
+              <form asp-action="Delete" method="post"
+                    asp-route-page="@Model.PagingInfo.CurrentPage"
+                    asp-route-sort="@Model.PagingInfo.Sort"
+                    asp-route-ascending="@Model.PagingInfo.Ascending">
+                  <input type="hidden" name="Id" value="@species.Id" />
+                  <button type="submit" class="btn btn-sm btn-danger delete" title="Delete"><i class="delete"></i></button>
+              </form>
+          </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+@section scripts {
+  <script src="~/js/pager.js" asp-append-version="true"></script>
+}
