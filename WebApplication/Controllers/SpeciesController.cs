@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using WebApplication.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 
 namespace WebApplication.Controllers
 {
@@ -57,22 +59,52 @@ namespace WebApplication.Controllers
                             .Skip((page - 1) * pagesize)
                             .Take(pagesize)
                             .ToList();
+
+            List<ViewSpecies> vw_species = new List<ViewSpecies>();
+            for (var i = 0; i < species.Count(); i++)
+            {
+                int idFamily = ctx.Families.Where(d => d.FamilyId == ctx.Genus.Where(d => d.GenusId == species[i].TaxonomicTree).Select(s => s.GenusId).FirstOrDefault()).Select(s => s.FamilyId).FirstOrDefault();
+                int idOrder = ctx.Orders.Where(d => d.OrderId == idFamily).Select(s => s.OrderId).FirstOrDefault();
+                int idClas = ctx.Classes.Where(d => d.ClassId == idOrder).Select(s => s.ClassId).FirstOrDefault();
+                int idDivision = ctx.Divisions.Where(d => d.DivisionId == idClas).Select(s => s.DivisionId).FirstOrDefault();
+                int idKingdome = ctx.Kingdoms.Where(d => d.KingdomId == idDivision).Select(s => s.KingdomId).FirstOrDefault();
+
+                vw_species.Add(new ViewSpecies(species[i].Id, species[i].LatinName, species[i].FullName, species[i].IsEndemic, species[i].IsAutochthonous, species[i].IsWeed, species[i].IsInvasive,
+                    ctx.Genus.Where(d => d.GenusId == species[i].TaxonomicTree).Select(s => s.Name).FirstOrDefault(),
+                    ctx.Orders.Where(d => d.OrderId == idOrder).Select(s => s.Name).FirstOrDefault(),
+                    ctx.Classes.Where(d => d.ClassId == idClas).Select(s => s.Name).FirstOrDefault(),
+                    ctx.Families.Where(d => d.FamilyId == idFamily).Select(s => s.Name).FirstOrDefault(),
+                    ctx.Kingdoms.Where(d => d.KingdomId == idKingdome).Select(s => s.Name).FirstOrDefault(),
+                    ctx.Divisions.Where(d => d.DivisionId == idDivision).Select(s => s.Name).FirstOrDefault()));
+            }
+
             var model = new SpeciesViewModel
             {
-                Species = species,
+                Species = vw_species,
                 PagingInfo = pagingInfo
             };
             return View(model);
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            await PrepareDropDownListsGenus();
             return View();
         }
+
+        private async Task PrepareDropDownListsGenus()
+        {
+            var genu = await ctx.Genus.OrderBy(d => d.Name)
+            .Select(d => new { d.Name, d.GenusId })
+            .ToListAsync();
+            ViewBag.genu = new SelectList(genu,
+            "GenusId", "Name");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Species species)
+        public async Task<IActionResult> Create(Species species)
         {
             if (ModelState.IsValid)
             {
@@ -90,21 +122,27 @@ namespace WebApplication.Controllers
                 {
                     ModelState.AddModelError(string.Empty,
                     exc.CompleteExceptionMessage());
+                    await PrepareDropDownListsGenus();
                     return View(species);
                 }
             }
             else
+            {
+                await PrepareDropDownListsGenus();
                 return View(species);
+            }
+
         }
 
         [HttpGet]
-        public IActionResult CreateKingdome()
+        public IActionResult CreateKingdom()
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateKingdome(Kingdom kingdom)
+        public IActionResult CreateKingdom(Kingdom kingdom)
         {
             if (ModelState.IsValid)
             {
@@ -112,147 +150,247 @@ namespace WebApplication.Controllers
                 {
                     ctx.Add(kingdom);
                     ctx.SaveChanges();
-                    TempData[Constants.Message] =
-                    $"Kingdom {kingdom.Name} is added.";
+
+                    TempData[Constants.Message] = $"kingdom {kingdom.Name} is added.";
                     TempData[Constants.ErrorOccurred] = false;
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception exc)
                 {
-                    ModelState.AddModelError(string.Empty,
-                    exc.CompleteExceptionMessage());
+                    ModelState.AddModelError(string.Empty, exc.CompleteExceptionMessage());
                     return View(kingdom);
                 }
             }
             else
+            {
                 return View(kingdom);
+            }
         }
 
         [HttpGet]
-        public IActionResult CreateClass()
+        public async Task<IActionResult> CreateDivision()
         {
+            await PrepareDropDownListsKingdom();
             return View();
         }
+
+        private async Task PrepareDropDownListsKingdom()
+        {
+            var kingdom = await ctx.Kingdoms.OrderBy(d => d.Name)
+            .Select(d => new { d.Name, d.KingdomId })
+            .ToListAsync();
+            ViewBag.kingdom = new SelectList(kingdom,
+            "KingdomId", "Name");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateClass(Class clas)
+        public async Task<IActionResult> CreateDivision(Division division)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    ctx.Add(division);
+                    await ctx.SaveChangesAsync();
+
+                    TempData[Constants.Message] = $"division {division.Name} is added.";
+                    TempData[Constants.ErrorOccurred] = false;
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception exc)
+                {
+                    ModelState.AddModelError(string.Empty, exc.CompleteExceptionMessage());
+                    await PrepareDropDownListsKingdom();
+                    return View(division);
+                }
+            }
+            else
+            {
+                await PrepareDropDownListsKingdom();
+                return View(division);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateClass()
+        {
+            await PrepareDropDownListsDivision();
+            return View();
+        }
+
+        private async Task PrepareDropDownListsDivision()
+        {
+            var division = await ctx.Divisions.OrderBy(d => d.Name)
+            .Select(d => new { d.Name, d.DivisionId })
+            .ToListAsync();
+            ViewBag.division = new SelectList(division,
+            "DivisionId", "Name");
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateClass(Class clas)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     ctx.Add(clas);
-                    ctx.SaveChanges();
-                    TempData[Constants.Message] =
-                    $"Class {clas.Name} is added.";
+                    await ctx.SaveChangesAsync();
+
+                    TempData[Constants.Message] = $"clas {clas.Name} is added.";
                     TempData[Constants.ErrorOccurred] = false;
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception exc)
                 {
-                    ModelState.AddModelError(string.Empty,
-                    exc.CompleteExceptionMessage());
+                    ModelState.AddModelError(string.Empty, exc.CompleteExceptionMessage());
+                    await PrepareDropDownListsDivision();
                     return View(clas);
                 }
             }
             else
+            {
+                await PrepareDropDownListsDivision();
                 return View(clas);
+            }
         }
 
         [HttpGet]
-        public IActionResult CreateOrder()
+        public async Task<IActionResult> CreateOrder()
         {
+            await PrepareDropDownListsClass();
             return View();
         }
+
+        private async Task PrepareDropDownListsClass()
+        {
+            var clas = await ctx.Classes.OrderBy(d => d.Name)
+            .Select(d => new { d.Name, d.ClassId })
+            .ToListAsync();
+            ViewBag.clas = new SelectList(clas,
+            "ClassId", "Name");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateOrder(Species species)
+        public async Task<IActionResult> CreateOrder(Order order)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    species.FullName = species.LatinName + " Test";
-                    ctx.Add(species);
-                    ctx.SaveChanges();
-                    TempData[Constants.Message] =
-                    $"Species {species.FullName} is added.";
+                    ctx.Add(order);
+                    await ctx.SaveChangesAsync();
+
+                    TempData[Constants.Message] = $"order {order.Name} is added.";
                     TempData[Constants.ErrorOccurred] = false;
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception exc)
                 {
-                    ModelState.AddModelError(string.Empty,
-                    exc.CompleteExceptionMessage());
-                    return View(species);
+                    ModelState.AddModelError(string.Empty, exc.CompleteExceptionMessage());
+                    await PrepareDropDownListsClass();
+                    return View(order);
                 }
             }
             else
-                return View(species);
+            {
+                await PrepareDropDownListsClass();
+                return View(order);
+            }
         }
 
         [HttpGet]
-        public IActionResult CreateFamily()
+        public async Task<IActionResult> CreateFamily()
         {
+            await PrepareDropDownListsOrder();
             return View();
         }
+
+        private async Task PrepareDropDownListsOrder()
+        {
+            var order = await ctx.Orders.OrderBy(d => d.Name)
+            .Select(d => new { d.Name, d.OrderId })
+            .ToListAsync();
+            ViewBag.order = new SelectList(order,
+            "OrderId", "Name");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateFamily(Species species)
+        public async Task<IActionResult> CreateFamily(Family family)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    species.FullName = species.LatinName + " Test";
-                    ctx.Add(species);
-                    ctx.SaveChanges();
-                    TempData[Constants.Message] =
-                    $"Species {species.FullName} is added.";
+                    ctx.Add(family);
+                    await ctx.SaveChangesAsync();
+
+                    TempData[Constants.Message] = $"family {family.Name} is added.";
                     TempData[Constants.ErrorOccurred] = false;
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception exc)
                 {
-                    ModelState.AddModelError(string.Empty,
-                    exc.CompleteExceptionMessage());
-                    return View(species);
+                    ModelState.AddModelError(string.Empty, exc.CompleteExceptionMessage());
+                    await PrepareDropDownListsOrder();
+                    return View(family);
                 }
             }
             else
-                return View(species);
+            {
+                await PrepareDropDownListsOrder();
+                return View(family);
+            }
         }
 
         [HttpGet]
-        public IActionResult CreateGenus()
+        public async Task<IActionResult> CreateGenus()
         {
+            await PrepareDropDownListsFamily();
             return View();
         }
+
+        private async Task PrepareDropDownListsFamily()
+        {
+            var family = await ctx.Families.OrderBy(d => d.Name)
+            .Select(d => new { d.Name, d.FamilyId })
+            .ToListAsync();
+            ViewBag.family = new SelectList(family,
+            "FamilyId", "Name");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateGenus(Species species)
+        public async Task<IActionResult> CreateGenus(Genu genu)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    species.FullName = species.LatinName + " Test";
-                    ctx.Add(species);
-                    ctx.SaveChanges();
-                    TempData[Constants.Message] =
-                    $"Species {species.FullName} is added.";
+                    ctx.Add(genu);
+                    await ctx.SaveChangesAsync();
+
+                    TempData[Constants.Message] = $"genus {genu.Name} is added.";
                     TempData[Constants.ErrorOccurred] = false;
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception exc)
                 {
-                    ModelState.AddModelError(string.Empty,
-                    exc.CompleteExceptionMessage());
-                    return View(species);
+                    ModelState.AddModelError(string.Empty, exc.CompleteExceptionMessage());
+                    await PrepareDropDownListsFamily();
+                    return View(genu);
                 }
             }
             else
-                return View(species);
+            {
+                await PrepareDropDownListsFamily();
+                return View(genu);
+            }
         }
 
 

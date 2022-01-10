@@ -13,8 +13,6 @@ namespace WebApplication.ModelsValidation
         {
             RuleFor(d => d.LatinName)
             .NotEmpty().WithMessage("Latin name is required");
-            RuleFor(d => d.FullName)
-            .NotEmpty().WithMessage("Full name is required");
             RuleFor(d => d.TaxonomicTree)
             .NotEmpty().WithMessage("Taxonomic tree is required");
             RuleFor(d => d.IsEndemic)

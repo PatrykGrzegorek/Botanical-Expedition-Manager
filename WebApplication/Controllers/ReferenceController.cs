@@ -72,7 +72,7 @@ namespace WebApplication.Controllers
                    ctx.People.Where(d => d.PersonId == reference[i].AuthorId).Select(s => s.LastName).FirstOrDefault(),
                    reference[i].Title, reference[i].Year, reference[i].Description));
 
-        }
+            }
             var model = new ReferenceViewModel
             {
                 Reference = vw_reference,
