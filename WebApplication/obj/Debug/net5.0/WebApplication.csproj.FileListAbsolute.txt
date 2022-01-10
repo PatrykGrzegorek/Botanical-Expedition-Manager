@@ -76,9 +76,7 @@ C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Expedition\Index.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Herbarium\Create.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Herbarium\Edit.cshtml.g.cs
-C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Herbarium\Filter.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Herbarium\Index.cshtml.g.cs
-C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Herbarium\Show.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Museum\Create.cshtml.g.cs
@@ -119,3 +117,4 @@ C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\ref\WebApplication.dll
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\WebApplication.pdb
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\WebApplication.genruntimeconfig.cache
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Herbarium\CreatePartOfPlant.cshtml.g.cs

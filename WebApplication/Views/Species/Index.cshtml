@@ -37,6 +37,9 @@
               </a>
           </th>
           <th>
+              FullName
+          </th>
+          <th>
               Genus
           </th>
           <th>
@@ -54,6 +57,11 @@
           <th>
               Kingdom
           </th>
+          <th>
+              <a asp-route-sort="6" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                  Id
+              </a>
+          </th>
 
           <th></th>
       </tr>
@@ -67,12 +75,14 @@
           <td class="text-center">@species.IsAutochthonous</td>
           <td class="text-center">@species.IsWeed</td>
           <td class="text-center">@species.IsInvasive</td>
+          <td class="text-center">@species.FullName</td>
           <td class="text-center">@species.Genus</td>
           <td class="text-center">@species.Family</td>
           <td class="text-center">@species.Order</td>
           <td class="text-center">@species.Clas</td>
           <td class="text-center">@species.Division</td>
           <td class="text-center">@species.Kingom</td>
+          <td class="text-center">@species.Id</td>
           <td class="btn-group">
               <a asp-action="Edit"
                  asp-route-id="@species.Id"

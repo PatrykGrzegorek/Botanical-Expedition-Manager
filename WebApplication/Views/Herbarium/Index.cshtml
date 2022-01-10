@@ -22,7 +22,13 @@
               </a>
           </th>
           <th>
-                  Collection
+              Collection
+          </th>
+          <th>
+              PartOfPlant
+          </th>
+          <th>
+              Species
           </th>
           <th></th>
       </tr>
@@ -34,6 +40,8 @@
           <td class="text-center">@herbarium.InventoryNumber</td>
           <td class="text-center">@herbarium.YearOfCollection</td>
           <td class="text-center">@herbarium.CollectionName</td>
+          <td class="text-center">@herbarium.PartOfPlantName</td>
+          <td class="text-center">@herbarium.SpeciesName</td>
           <td class="btn-group">
               <a asp-action="Edit"
                  asp-route-id="@herbarium.HerbariumId"
