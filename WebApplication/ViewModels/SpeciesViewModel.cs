@@ -8,7 +8,7 @@ namespace WebApplication.ViewModels
 {
     public class SpeciesViewModel
     {
-        public IEnumerable<Species> Species { get; set; }
+        public IEnumerable<ViewSpecies> Species { get; set; }
         public PagingInfo PagingInfo { get; set; }
 
     }

@@ -102,7 +102,6 @@ C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Species\Create.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Species\Edit.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Species\Index.cshtml.g.cs
-C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Species\IndexSimple.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\_ViewStart.cshtml.g.cs
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\WebApplication.RazorTargetAssemblyInfo.cache
@@ -114,3 +113,9 @@ C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\WebApplication.pdb
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\WebApplication.genruntimeconfig.cache
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\WebApplication.csproj.AssemblyReference.cache
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Species\CreateGenus.cshtml.g.cs
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Species\CreateFamily.cshtml.g.cs
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Species\CreateOrder.cshtml.g.cs
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Species\CreateClass.cshtml.g.cs
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Species\CreateDivision.cshtml.g.cs
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Species\CreateKingdom.cshtml.g.cs

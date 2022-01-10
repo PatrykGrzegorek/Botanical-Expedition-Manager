@@ -1,0 +1,32 @@
+﻿@model Genu
+
+@{
+  ViewBag.Title = "New Genus";
+}
+
+<h2>New Genus</h2>
+
+<form asp-action="CreateGenus" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <div><span asp-validation-for="Name" class="text-danger" /></div>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="FamilyId"></label>
+        <div><span asp-validation-for="FamilyId" class="text-danger"></span></div>
+        <select class="form-control" asp-for="FamilyId" asp-items="ViewBag.Family">
+            <option disabled selected value="">Chose Family</option>
+        </select>
+    </div>
+    <a asp-action="CreateFamily">Add new family</a>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Add</button>
+        <a asp-action="Create" class="btn btn-secondary">Back</a>
+    </div>
+</form>
+
+@section scripts {
+  <partial name="IncludeValidation" />
+}

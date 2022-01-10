@@ -16,18 +16,15 @@ namespace WebApplication.Extensions.Selectors
                     orderSelector = d => d.LatinName;
                     break;
                 case 2:
-                    orderSelector = d => d.TaxonomicTree;
-                    break;
-                case 3:
                     orderSelector = d => d.IsEndemic;
                     break;
-                case 4:
+                case 3:
                     orderSelector = d => d.IsAutochthonous;
                     break;
-                case 5:
+                case 4:
                     orderSelector = d => d.IsWeed;
                     break;
-                case 6:
+                case 5:
                     orderSelector = d => d.IsInvasive;
                     break;
             }

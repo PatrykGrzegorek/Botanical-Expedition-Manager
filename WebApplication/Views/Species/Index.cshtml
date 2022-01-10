@@ -8,10 +8,6 @@
 
 <a asp-action="Create">Add new species</a>
 
-<pager page-info="@Model.PagingInfo" page-action="Index" page-title="Enter the page you want"
-       class="float-right">
-</pager>
-
 <table class="table table-sm table-striped table-hover">
   <thead>
       <tr>
@@ -21,29 +17,42 @@
               </a>
           </th>
           <th>
-              <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
-                  TaxonomicTree
-              </a>
-          </th>
-          <th>
-              <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+              <a asp-route-sort="2" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
                   IsEndemic
               </a>
           </th>
           <th>
-              <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+              <a asp-route-sort="3" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
                   IsAutochthonous
               </a>
           </th>
           <th>
-              <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+              <a asp-route-sort="4" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
                   IsWeed
               </a>
           </th>
           <th>
-              <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+              <a asp-route-sort="5" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
                   IsInvasive
               </a>
+          </th>
+          <th>
+              Genus
+          </th>
+          <th>
+              Family
+          </th>
+          <th>
+              Order
+          </th>
+          <th>
+              Class
+          </th>
+          <th>
+              Division
+          </th>
+          <th>
+              Kingdom
           </th>
 
           <th></th>
@@ -54,11 +63,16 @@
     {
       <tr>
           <td class="text-center">@species.LatinName</td>
-          <td class="text-center">@species.TaxonomicTree</td
           <td class="text-center">@species.IsEndemic</td>
           <td class="text-center">@species.IsAutochthonous</td>
           <td class="text-center">@species.IsWeed</td>
           <td class="text-center">@species.IsInvasive</td>
+          <td class="text-center">@species.Genus</td>
+          <td class="text-center">@species.Family</td>
+          <td class="text-center">@species.Order</td>
+          <td class="text-center">@species.Clas</td>
+          <td class="text-center">@species.Division</td>
+          <td class="text-center">@species.Kingom</td>
           <td class="btn-group">
               <a asp-action="Edit"
                  asp-route-id="@species.Id"
@@ -79,7 +93,3 @@
     }
   </tbody>
 </table>
-
-@section scripts {
-  <script src="~/js/pager.js" asp-append-version="true"></script>
-}
