@@ -14,7 +14,15 @@ namespace WebApplication.ModelsValidation
             RuleFor(d => d.Name)
             .NotEmpty().WithMessage("Museum name is required");
             RuleFor(d => d.Country)
-            .NotEmpty().WithMessage("Country name should not be empty");
+            .NotEmpty().WithMessage("Country name is required");
+            RuleFor(d => d.City)
+            .NotEmpty().WithMessage("City name is required");
+            RuleFor(d => d.StreetName)
+            .NotEmpty().WithMessage("Street name is required");
+            RuleFor(d => d.StreetNumber)
+            .NotEmpty().WithMessage("Street number is required");
+            RuleFor(d => d.PostalCode)
+            .NotEmpty().WithMessage("Postal code is required");
         }
     }
 }
