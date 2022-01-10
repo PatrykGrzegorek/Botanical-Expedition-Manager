@@ -15,8 +15,6 @@ namespace WebApplication.ModelsValidation
             .NotEmpty().WithMessage("Date is required");
             RuleFor(d => d.ExpeditionId)
             .NotEmpty().WithMessage("Expedition id is required");
-            RuleFor(d => d.SpeciesId)
-            .NotEmpty().WithMessage("Species id is required");
         }
     }
 }

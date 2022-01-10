@@ -13,7 +13,7 @@ namespace WebApplication.ModelsValidation
         {
             RuleFor(d => d.SpeciesId)
             .NotEmpty().WithMessage("Species id is required");
-            RuleFor(d => d.TypeOfReference)
+            RuleFor(d => d.TypeOfReferenceId)
             .NotEmpty().WithMessage("Type of reference is required");
             RuleFor(d => d.Title)
             .NotEmpty().WithMessage("Title is required");
