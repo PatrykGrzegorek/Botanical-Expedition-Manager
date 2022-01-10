@@ -27,6 +27,9 @@ namespace WebApplication.Extensions.Selectors
                 case 5:
                     orderSelector = d => d.IsInvasive;
                     break;
+                case 6:
+                    orderSelector = d => d.Id;
+                    break;
             }
             if (orderSelector != null)
             {

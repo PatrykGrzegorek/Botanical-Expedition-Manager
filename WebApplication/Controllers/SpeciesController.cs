@@ -110,7 +110,7 @@ namespace WebApplication.Controllers
             {
                 try
                 {
-                    species.FullName = species.LatinName + " Test";
+                    species.FullName = species.LatinName + " " + ctx.Genus.Where(d => d.GenusId == species.TaxonomicTree).Select(s => s.Name).FirstOrDefault();
                     ctx.Add(species);
                     ctx.SaveChanges();
                     TempData[Constants.Message] =
@@ -455,7 +455,7 @@ namespace WebApplication.Controllers
                 }
 
                 if (await TryUpdateModelAsync<Species>(species, "",
-                    d => d.LatinName, d => d.TaxonomicTree, d => d.IsEndemic, d => d.IsAutochthonous, d => d.IsWeed, d => d.IsInvasive
+                    d => d.LatinName,  d => d.IsEndemic, d => d.IsAutochthonous, d => d.IsWeed, d => d.IsInvasive
                 ))
                 {
                     ViewBag.Page = page;

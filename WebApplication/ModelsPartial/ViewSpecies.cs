@@ -13,7 +13,7 @@ namespace WebApplication.Models
         {
             Id = id;
             LatinName = latinName;
-            CommonName = latinName + " " + genus;
+            CommonName = latinName + " ";
             FullName = fullName;
             IsEndemic = isEndemic;
             IsAutochthonous = isAutochthonous;

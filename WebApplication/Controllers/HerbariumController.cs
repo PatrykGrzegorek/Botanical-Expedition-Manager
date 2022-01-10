@@ -66,7 +66,9 @@ namespace WebApplication.Controllers
                 vw_herbarium.Add(new ViewHerbarium(herbarium[i].HerbariumId, herbarium[i].CollectionId, herbarium[i].YearOfCollection, herbarium[i].InventoryNumber, ctx.Collections
                   .Where(d => d.CollectionId == herbarium[i].CollectionId)
                   .Select(s => s.Name)
-                  .FirstOrDefault()));
+                  .FirstOrDefault(),
+                  ctx.PartOfPlants.Where(d => d.PlantId == herbarium[i].PiecesOfPlantsId).Select(s => s.Name).FirstOrDefault(),
+                  ctx.Species.Where(d => d.Id == herbarium[i].SpiecesId).Select(s => s.FullName).FirstOrDefault()));
                 
             }
             var model = new HerbariumViewModel
@@ -80,16 +82,36 @@ namespace WebApplication.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            await PrepareDropDownLists();
+            await PrepareDropDownCollection();
+            await PrepareDropDownListsPartOfPlant();
+            await PrepareDropDownListsSpecies();
             return View();
         }
-        private async Task PrepareDropDownLists()
+        private async Task PrepareDropDownCollection()
         {
             var collection = await ctx.Collections.OrderBy(d => d.Name)
             .Select(d => new { d.Name, d.CollectionId })
             .ToListAsync();
             ViewBag.collection = new SelectList(collection,
             "CollectionId", "Name");
+        }
+
+        private async Task PrepareDropDownListsPartOfPlant()
+        {
+            var part = await ctx.PartOfPlants.OrderBy(d => d.Name)
+            .Select(d => new { d.Name, d.PlantId })
+            .ToListAsync();
+            ViewBag.partofplant = new SelectList(part,
+            "PlantId", "Name");
+        }
+
+        private async Task PrepareDropDownListsSpecies()
+        {
+            var species = await ctx.Species.OrderBy(d => d.FullName)
+            .Select(d => new { d.FullName, d.Id })
+            .ToListAsync();
+            ViewBag.species = new SelectList(species,
+            "Id", "FullName");
         }
 
         [HttpPost]
@@ -110,14 +132,51 @@ namespace WebApplication.Controllers
                 catch (Exception exc)
                 {
                     ModelState.AddModelError(string.Empty, exc.CompleteExceptionMessage());
-                    await PrepareDropDownLists();
+                    await PrepareDropDownCollection();
+                    await PrepareDropDownListsPartOfPlant();
+                    await PrepareDropDownListsSpecies();
                     return View(herbarium);
                 }
             }
             else
             {
-                await PrepareDropDownLists();
+                await PrepareDropDownCollection();
+                await PrepareDropDownListsPartOfPlant();
+                await PrepareDropDownListsSpecies();
                 return View(herbarium);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult CreatePartOfPlant()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreatePartOfPlant(PartOfPlant partOfPlant)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    ctx.Add(partOfPlant);
+                    ctx.SaveChanges();
+
+                    TempData[Constants.Message] = $"partOfPlant {partOfPlant.Name} is added.";
+                    TempData[Constants.ErrorOccurred] = false;
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception exc)
+                {
+                    ModelState.AddModelError(string.Empty, exc.CompleteExceptionMessage());
+                    return View(partOfPlant);
+                }
+            }
+            else
+            {
+                return View(partOfPlant);
             }
         }
 
