@@ -1,10 +1,10 @@
-﻿@model Collection
+﻿@model Person
 
 @{
-  ViewBag.Title = "New Collection";
+  ViewBag.Title = "New Person";
 }
 
-<h2>New Collection</h2>
+<h2>New Person</h2>
 
 <form asp-action="Create" method="post">
     <div asp-validation-summary="All"></div>
@@ -14,11 +14,14 @@
         <input asp-for="Name" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="MuseumId"></label>
-        <div><span asp-validation-for="MuseumId" class="text-danger"></span></div>
-        <select class="form-control" asp-for="MuseumId" asp-items="ViewBag.Museum">
-            <option disabled selected value="">Chose museum</option>
-        </select>
+        <label asp-for="LastName"></label>
+        <div><span asp-validation-for="LastName" class="text-danger" /></div>
+        <input asp-for="LastName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <div><span asp-validation-for="Title" class="text-danger" /></div>
+        <input asp-for="Title" class="form-control" />
     </div>
     <div class="text-center">
         <button class="btn btn-primary" type="submit">Add</button>

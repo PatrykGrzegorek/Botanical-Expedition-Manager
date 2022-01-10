@@ -1,0 +1,54 @@
+﻿@model Reference
+
+@{ ViewBag.Title = "New Reference"; }
+
+<h2>New Reference</h2>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <div><span asp-validation-for="Title" class="text-danger" /></div>
+        <input asp-for="Title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Year"></label>
+        <div><span asp-validation-for="Year" class="text-danger" /></div>
+        <input asp-for="Year" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <div><span asp-validation-for="Description" class="text-danger" /></div>
+        <input asp-for="Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="SpeciesId"></label>
+        <div><span asp-validation-for="SpeciesId" class="text-danger"></span></div>
+        <select class="form-control" asp-for="SpeciesId" asp-items="ViewBag.Species">
+            <option disabled selected value="">Chose species</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="TypeOfReferenceId"></label>
+        <div><span asp-validation-for="TypeOfReferenceId" class="text-danger"></span></div>
+        <select class="form-control" asp-for="TypeOfReferenceId" asp-items="ViewBag.TypeOfReference">
+            <option disabled selected value="" id="TypeOfReferenceValue">Chose typeofreference</option>
+        </select>
+    </div>
+    <a asp-action="CreateTypeOfReference">Add new TypeOfReference</a>
+    <div class="form-group">
+        <label asp-for="AuthorId"></label>
+        <div><span asp-validation-for="AuthorId" class="text-danger"></span></div>
+        <select class="form-control" asp-for="AuthorId" asp-items="ViewBag.Person">
+            <option disabled selected value="">Chose author</option>
+        </select>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Add</button>
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    </div>
+</form>
+
+@section scripts {
+    <partial name="IncludeValidation" />
+}

@@ -1,0 +1,24 @@
+﻿@model TypeOfReference
+
+@{
+  ViewBag.Title = "New TypeOfReference";
+}
+
+<h2>New TypeOfReference</h2>
+
+<form asp-action="CreateTypeOfReference" method="post">
+    <div asp-validation-summary="All"></div>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <div><span asp-validation-for="Name" class="text-danger" /></div>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Add</button>
+        <a asp-action="Create" class="btn btn-secondary">Back</a>
+    </div>
+</form>
+
+@section scripts {
+  <partial name="IncludeValidation" />
+}

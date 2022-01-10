@@ -1,0 +1,57 @@
+﻿@model WebApplication.ViewModels.ExpeditionViewModel
+
+@{ ViewBag.Title = "Expedition"; }
+
+<h2>List of expeditions</h2>
+
+<a asp-action="Create">Add new expedition</a>
+
+<table class="table table-sm table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                    ExpeditionId
+                </a>
+            </th>
+            <th>
+                <a asp-route-sort="2" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 2 ? !Model.PagingInfo.Ascending : true)">
+                    Name
+                </a>
+            </th>
+            <th>
+                    Description
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var expedition in Model.Expedition)
+        {
+<tr>
+    <td class="text-center">@expedition.ExpeditionId</td>
+    <td class="text-center">@expedition.Name</td>
+    <td class="text-left">@expedition.Discription</td>
+    <td class="btn-group">
+        <a asp-action="Edit"
+           asp-route-id="@expedition.ExpeditionId"
+           asp-route-page="@Model.PagingInfo.CurrentPage"
+           asp-route-sort="@Model.PagingInfo.Sort"
+           asp-route-ascending="@Model.PagingInfo.Ascending"
+           class="btn btn-sm btn-info" title="Edit"><i class="fas fa-edit"></i></a>
+    </td>
+    <td class="btn-group">
+        <form asp-action="Delete" method="post"
+              asp-route-IdExpedition="@expedition.ExpeditionId"
+              asp-route-page="@Model.PagingInfo.CurrentPage"
+              asp-route-sort="@Model.PagingInfo.Sort"
+              asp-route-ascending="@Model.PagingInfo.Ascending">
+            <input type="hidden" name="ExpeditionId" value="@expedition.ExpeditionId" />
+            <button type="submit" class="btn btn-sm btn-danger delete" title="Delete"><i class="fas fa-trash-alt"></i></button>
+        </form>
+    </td>
+</tr>}
+    </tbody>
+</table>
+
+

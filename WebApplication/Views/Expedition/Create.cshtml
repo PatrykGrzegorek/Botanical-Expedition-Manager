@@ -1,10 +1,10 @@
-﻿@model Collection
+﻿@model Expedition
 
 @{
-  ViewBag.Title = "New Collection";
+  ViewBag.Title = "New Expedition";
 }
 
-<h2>New Collection</h2>
+<h2>New Expedition</h2>
 
 <form asp-action="Create" method="post">
     <div asp-validation-summary="All"></div>
@@ -14,11 +14,9 @@
         <input asp-for="Name" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="MuseumId"></label>
-        <div><span asp-validation-for="MuseumId" class="text-danger"></span></div>
-        <select class="form-control" asp-for="MuseumId" asp-items="ViewBag.Museum">
-            <option disabled selected value="">Chose museum</option>
-        </select>
+        <label asp-for="Discription"></label>
+        <div><span asp-validation-for="Discription" class="text-danger" /></div>
+        <input asp-for="Discription" class="form-control" />
     </div>
     <div class="text-center">
         <button class="btn btn-primary" type="submit">Add</button>

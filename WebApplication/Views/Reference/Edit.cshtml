@@ -1,0 +1,41 @@
+﻿@model Reference
+
+@{
+  ViewBag.Title = "Edit Reference";
+}
+
+<form asp-route-id="@Model.ReferenceId"
+      asp-route-page="@ViewBag.Page"
+      asp-route-sort="@ViewBag.Sort"
+      asp-route-ascending="@ViewBag.Ascending"
+      method="post">
+    <div asp-validation-summary="All"></div>
+
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <div><span asp-validation-for="Title" class="text-danger" /></div>
+        <input asp-for="Title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Year"></label>
+        <div><span asp-validation-for="Year" class="text-danger" /></div>
+        <input asp-for="Year" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <div><span asp-validation-for="Description" class="text-danger" /></div>
+        <input asp-for="Description" class="form-control" />
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Edit</button>
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">Back</a>
+    </div>
+</form>
+
+@section scripts {
+  <partial name="IncludeValidation" />
+}

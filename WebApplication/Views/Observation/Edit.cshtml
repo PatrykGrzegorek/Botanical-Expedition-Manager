@@ -1,0 +1,31 @@
+﻿@model Observation
+
+@{
+  ViewBag.Title = "Edit Observation";
+}
+
+<form asp-route-id="@Model.ObservationId"
+      asp-route-page="@ViewBag.Page"
+      asp-route-sort="@ViewBag.Sort"
+      asp-route-ascending="@ViewBag.Ascending"
+      method="post">
+    <div asp-validation-summary="All"></div>
+
+    <div class="form-group">
+        <label asp-for="Date"></label>
+        <div><span asp-validation-for="Date" class="text-danger"></span></div>
+        <input asp-for="Date" class="form-control" />
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Edit</button>
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">Back</a>
+    </div>
+</form>
+
+@section scripts {
+  <partial name="IncludeValidation" />
+}

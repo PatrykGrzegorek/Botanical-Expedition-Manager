@@ -100,3 +100,16 @@ C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\bin\Debug\net5.
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\bin\Debug\net5.0\System.Web.WebPages.Razor.dll
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\bin\Debug\net5.0\System.Web.WebPages.dll
 C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\bin\Debug\net5.0\Microsoft.Web.Infrastructure.dll
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Expedition\Create.cshtml.g.cs
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Expedition\Edit.cshtml.g.cs
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Expedition\Index.cshtml.g.cs
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Observation\Create.cshtml.g.cs
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Observation\Edit.cshtml.g.cs
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Observation\Index.cshtml.g.cs
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Person\Create.cshtml.g.cs
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Person\Edit.cshtml.g.cs
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Person\Index.cshtml.g.cs
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Reference\Create.cshtml.g.cs
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Reference\Edit.cshtml.g.cs
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Reference\Index.cshtml.g.cs
+C:\Users\patry\Desktop\DSA\project\WebApplication\WebApplication\obj\Debug\net5.0\Razor\Views\Reference\CreateTypeOfReference.cshtml.g.cs

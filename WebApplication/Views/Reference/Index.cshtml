@@ -1,0 +1,78 @@
+﻿@model WebApplication.ViewModels.ReferenceViewModel
+
+    @{ ViewBag.Title = "Reference"; }
+
+<h2>List of References</h2>
+
+    <a asp-action="Create">Add new Reference</a>
+
+
+    <table class="table table-sm table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-route-sort="1" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                        Id
+                    </a>
+                </th>
+                <th>
+                    <a asp-route-sort="2" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                        Title
+                    </a>
+                </th>
+                <th>
+                    <a asp-route-sort="3" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                        Year
+                    </a>
+                </th>
+                <th>
+                    <a asp-route-sort="4" asp-route-page="@Model.PagingInfo.CurrentPage" asp-route-ascending="@(Model.PagingInfo.Sort == 1 ? !Model.PagingInfo.Ascending : true)">
+                        Description
+                    </a>
+                </th>
+                <th>
+                        SpeciesFullName
+                </th>
+                <th>
+                    TypeOfReferenceName
+                </th>
+                <th>
+                    AuthorFullName
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reference in Model.Reference)
+            {
+            <tr>
+                <td class="text-center">@reference.ReferenceId</td>
+                <td class="text-center">@reference.Title</td>
+                <td class="text-center">@reference.Year</td>
+                <td class="text-center">@reference.Description</td>
+                <td class="text-center">@reference.SpeciesFullName</td>
+                <td class="text-center">@reference.TypeOfReferenceName</td>
+                <td class="text-center">@reference.AuthorFullName</td>
+
+                <td class="btn-group">
+                    <a asp-action="Edit"
+                       asp-route-id="@reference.ReferenceId"
+                       asp-route-page="@Model.PagingInfo.CurrentPage"
+                       asp-route-sort="@Model.PagingInfo.Sort"
+                       asp-route-ascending="@Model.PagingInfo.Ascending"
+                       class="btn btn-sm btn-info" title="Edit"><i class="fas fa-edit"></i></a>
+                </td>
+                <td>
+                    <form asp-action="Delete" method="post"
+                          asp-route-IdReference="@reference.ReferenceId"
+                          asp-route-page="@Model.PagingInfo.CurrentPage"
+                          asp-route-sort="@Model.PagingInfo.Sort"
+                          asp-route-ascending="@Model.PagingInfo.Ascending">
+                        <input type="hidden" name="ReferenceId" value="@reference.ReferenceId" />
+                        <button type="submit" class="btn btn-sm btn-danger delete" title="Delete"><i class="delete"></i></button>
+                    </form>
+                </td>
+            </tr>}
+        </tbody>
+    </table>
+

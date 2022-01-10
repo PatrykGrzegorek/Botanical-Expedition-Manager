@@ -97,6 +97,165 @@ namespace WebApplication.Controllers
                 return View(species);
         }
 
+        [HttpGet]
+        public IActionResult CreateKingdome()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateKingdome(Kingdom kingdom)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    ctx.Add(kingdom);
+                    ctx.SaveChanges();
+                    TempData[Constants.Message] =
+                    $"Kingdom {kingdom.Name} is added.";
+                    TempData[Constants.ErrorOccurred] = false;
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception exc)
+                {
+                    ModelState.AddModelError(string.Empty,
+                    exc.CompleteExceptionMessage());
+                    return View(kingdom);
+                }
+            }
+            else
+                return View(kingdom);
+        }
+
+        [HttpGet]
+        public IActionResult CreateClass()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateClass(Class clas)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    ctx.Add(clas);
+                    ctx.SaveChanges();
+                    TempData[Constants.Message] =
+                    $"Class {clas.Name} is added.";
+                    TempData[Constants.ErrorOccurred] = false;
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception exc)
+                {
+                    ModelState.AddModelError(string.Empty,
+                    exc.CompleteExceptionMessage());
+                    return View(clas);
+                }
+            }
+            else
+                return View(clas);
+        }
+
+        [HttpGet]
+        public IActionResult CreateOrder()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateOrder(Species species)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    species.FullName = species.LatinName + " Test";
+                    ctx.Add(species);
+                    ctx.SaveChanges();
+                    TempData[Constants.Message] =
+                    $"Species {species.FullName} is added.";
+                    TempData[Constants.ErrorOccurred] = false;
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception exc)
+                {
+                    ModelState.AddModelError(string.Empty,
+                    exc.CompleteExceptionMessage());
+                    return View(species);
+                }
+            }
+            else
+                return View(species);
+        }
+
+        [HttpGet]
+        public IActionResult CreateFamily()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateFamily(Species species)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    species.FullName = species.LatinName + " Test";
+                    ctx.Add(species);
+                    ctx.SaveChanges();
+                    TempData[Constants.Message] =
+                    $"Species {species.FullName} is added.";
+                    TempData[Constants.ErrorOccurred] = false;
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception exc)
+                {
+                    ModelState.AddModelError(string.Empty,
+                    exc.CompleteExceptionMessage());
+                    return View(species);
+                }
+            }
+            else
+                return View(species);
+        }
+
+        [HttpGet]
+        public IActionResult CreateGenus()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateGenus(Species species)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    species.FullName = species.LatinName + " Test";
+                    ctx.Add(species);
+                    ctx.SaveChanges();
+                    TempData[Constants.Message] =
+                    $"Species {species.FullName} is added.";
+                    TempData[Constants.ErrorOccurred] = false;
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception exc)
+                {
+                    ModelState.AddModelError(string.Empty,
+                    exc.CompleteExceptionMessage());
+                    return View(species);
+                }
+            }
+            else
+                return View(species);
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int IdSpecies, int page = 1, int sort = 1, bool ascending = true)
