@@ -32,7 +32,7 @@
         <label asp-for="TypeOfReferenceId"></label>
         <div><span asp-validation-for="TypeOfReferenceId" class="text-danger"></span></div>
         <select class="form-control" asp-for="TypeOfReferenceId" asp-items="ViewBag.TypeOfReference">
-            <option disabled selected value="" id="TypeOfReferenceValue">Chose typeofreference</option>
+            <option disabled selected value="">Chose typeofreference</option>
         </select>
     </div>
     <a asp-action="CreateTypeOfReference">Add new TypeOfReference</a>
