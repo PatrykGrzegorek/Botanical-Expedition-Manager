@@ -1,0 +1,1 @@
+CRUD application with validations using .Net MVC and .Net Core as a botanical blog, enabling extensive management of expeditions, plant species, locations, collections, and people. The .Net Core extension is optional and exposes ready-to-query endpoints. The .Net MVC extension alone would be sufficient for the application to function.
